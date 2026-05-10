@@ -1,4 +1,5 @@
 # In diesen Program soll die Breitensuche erklaert werden
+import vis
 
 def get_direction(prev, after):
     dx = after[0] - prev[0]
@@ -27,26 +28,25 @@ lab = [
     ["#","#","#","#","#","#","#","#","#","#","#","#","#","#","#"],
 ]
 
-direction = 0 # 0 = rechts, 1 = vorne, 2 = links, 3 = hinten
 start = (2, 1) # Start position (S)
 x, y = start
 queue = [] # Der Stapel für die Tiefensuche
 
 # Das dritte Element ist die Richtung: 0 = rechts, 1 = oben, 2 = links, 3 = unten
-queue.append((start, direction))  # Startposition zum Stapel hinzufügen
+queue.append(start)  # Startposition zum Stapel hinzufügen
 
 known = [start] # Liste der besuchten Positionen
+parent = {start: None}
 
 # Nachbarn auf den Stapel hinzufügen
 abs_neighbor = [(x+1, y), (x, y-1), (x-1, y), (x, y+1)]
-relative_neighbor = abs_neighbor[direction:] + abs_neighbor[:direction]
-for (i, j) in relative_neighbor: # Alle Nachbarn
+for (i, j) in abs_neighbor: # Alle Nachbarn
     if lab[j][i] in (".", "Z") and not (i, j) in known: # Ist der Nachbar relevant?
-        new_direction = get_direction(start, (i, j))
-        queue.append(((i, j), new_direction)) # Relevante Nachbarn auf den Stapel tun
+        parent[(i, j)] = start
+        queue.append((i, j)) # Relevante Nachbarn auf den Stapel tun
 
 while queue: # Solange der Stapel nicht leer ist
-    current_pos, direction = queue.pop(0)  # Aktuelle Position vom Stapel nehmen (letztes Element)
+    current_pos = queue.pop(0)  # Aktuelle Position vom Stapel nehmen (letztes Element)
     x, y = current_pos
     
     if current_pos in known: # Besucht?
@@ -57,16 +57,11 @@ while queue: # Solange der Stapel nicht leer ist
         print("Ziel gefunden:", current_pos)  # Ziel gefunden
         break  # Schleife verlassen
     
-    abs_neighbor = [(x+1, y), (x, y-1), (x-1, y), (x, y+1)]
-    relative_neighbor = abs_neighbor[direction:] + abs_neighbor[:direction]
-    for (i, j) in relative_neighbor: # Alle Nachbarn
+    for (i, j) in [(x+1, y), (x, y-1), (x-1, y), (x, y+1)]: # Alle Nachbarn
         if lab[j][i] in (".", "Z") and (i, j) not in known: # Ist der Nachbar relevant?
-            new_direction = get_direction(current_pos, (i, j))
-            queue.append(((i, j), new_direction)) # Relevante Nachbarn auf den Stapel tun
+            parent[(i, j)] = current_pos
+            queue.append((i, j)) # Relevante Nachbarn auf den Stapel tun
 
 # Visualizieren des weges
-for (x, y) in known:
-    lab[y][x] = "K"
-
-for row in lab:
-    print(" ".join(row))
+path = vis.print_lab(current_pos, parent, start, lab)
+print(f"\nWeg: {' -> '.join(str(p) for p in path)}")
