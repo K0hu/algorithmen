@@ -1,5 +1,6 @@
 # In diesen Program soll die Breitensuche erklaert werden
 import vis
+import labyrinth
 
 def get_direction(prev, after):
     dx = after[0] - prev[0]
@@ -10,25 +11,9 @@ def get_direction(prev, after):
     elif dy == 1:  return 3  # unten
 
 # Das Labyrinth
-lab = [
-    ["#","#","#","#","#","#","#","#","#","#","#","#","#","#","#"],
-    ["#",".",".",".","#",".",".",".",".",".","#",".",".",".","#"],
-    ["#",".","#",".","#",".","#","#","#",".","#",".","#",".","#"],
-    ["#",".","#",".",".",".","#","Z","#",".",".",".","#",".","#"],
-    ["#",".","#","#","#","#","#",".","#","#","#","#","#",".","#"],
-    ["#",".",".",".",".",".",".",".",".",".",".",".","#",".","#"],
-    ["#","#","#",".","#","#","#","#","#","#","#",".","#",".","#"],
-    ["#",".",".",".","#",".",".",".",".",".","#",".",".",".","#"],
-    ["#",".","#","#","#",".","#","#","#",".","#","#","#","#","#"],
-    ["#",".",".",".",".",".","#",".",".",".",".",".",".",".","#"],
-    ["#","#","#","#","#",".",".",".",".","#","#","#","#",".","#"],
-    ["#",".",".",".",".",".",".","#",".",".",".",".",".",".","#"],
-    ["#",".","#","#","#","#","#","#","#",".",".","#","#","#","#"],  
-    ["#",".",".",".",".",".",".",".",".",".",".",".",".",".","#"],
-    ["#","#","#","#","#","#","#","#","#","#","#","#","#","#","#"],
-]
+lab = labyrinth.lab10
 
-start = (2, 1) # Start position (S)
+start = (1, 1) # Start position (S)
 x, y = start
 queue = [] # Der Stapel für die Tiefensuche
 
@@ -41,7 +26,7 @@ parent = {start: None}
 # Nachbarn auf den Stapel hinzufügen
 abs_neighbor = [(x+1, y), (x, y-1), (x-1, y), (x, y+1)]
 for (i, j) in abs_neighbor: # Alle Nachbarn
-    if lab[j][i] in (".", "Z") and not (i, j) in known: # Ist der Nachbar relevant?
+    if lab[j][i] != "#" and not (i, j) in known: # Ist der Nachbar relevant?
         parent[(i, j)] = start
         queue.append((i, j)) # Relevante Nachbarn auf den Stapel tun
 
@@ -58,7 +43,7 @@ while queue: # Solange der Stapel nicht leer ist
         break  # Schleife verlassen
     
     for (i, j) in [(x+1, y), (x, y-1), (x-1, y), (x, y+1)]: # Alle Nachbarn
-        if lab[j][i] in (".", "Z") and (i, j) not in known: # Ist der Nachbar relevant?
+        if lab[j][i] != "#" and (i, j) not in known: # Ist der Nachbar relevant?
             parent[(i, j)] = current_pos
             queue.append((i, j)) # Relevante Nachbarn auf den Stapel tun
 

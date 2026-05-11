@@ -6,24 +6,14 @@
 # * = 2 (Steine)
 # % = 3 (Loecher im Boden)
 # & = 5 (Falle)
+import vis
+import labyrinth
 
 # Das Labyrinth
-lab = [
-    ["#","#","#","#","#","#","#","#","#","#","#","#","#","#","#"],
-    ["#",".",".",".","#",".",".",".",".",".","#",".",".",".","#"],
-    ["#",".","#","*","#",".","#","#","#",".","#",".","#",".","#"],
-    ["#","&","#","*","*",".","#","Z","#",".",".",".","#",".","#"],
-    ["#",".","#","#","#","#","#",".","#","#","#","#","#",".","#"],
-    ["#","*","*",".","%",".",".","%",".",".",".",".","#",".","#"],
-    ["#","#","#",".","#","#",".","#","#","#","#",".","#",".","#"],
-    ["#",".",".",".","#",".",".",".",".",".","#",".",".",".","#"],
-    ["#",".","#","#","#",".","#","#","#",".","#","#","#","#","#"],
-    ["#",".",".",".",".",".","#",".",".",".",".",".",".",".","#"],
-    ["#","#","#","#","#","#","#","#","#","#","#","#","#","#","#"]
-]
+lab = labyrinth.lab3
 
 weight = {"Z": 0, ".": 1, "*": 2, "%": 3, "&": 5, "#": 10} # Zuordnung der Gewichtungen zu den Feldertypen
-start = (2, 1) # Start position
+start = (1, 1) # Start position
 
 queue = [(0, start)] # Die "Warteschlange" 
 known = [start] # Liste der besuchten Positionen
@@ -34,11 +24,11 @@ def add_neighbors(cost: int, pos: tuple[int]) -> None:
     global queue
     x, y = pos
     neighbor = [(x+1, y), (x, y-1), (x-1, y), (x, y+1)] 
-    neighbor.sort(key=lambda n: weight[lab[n[1]][n[0]]])
 
     for (i, j) in neighbor: # Alle Nachbarn
-        if lab[j][i] in (".", "Z", "%", "*", "&") and not (i, j) in known: # Ist der Nachbar relevant?
-            parent[(i, j)] = pos
+        if lab[j][i] != "#" and not (i, j) in known: # Ist der Nachbar relevant?
+            if (i, j) not in parent: # Keine doppelt hinzufuegen fuer den resultierenden Weg
+                parent[(i, j)] = pos
             queue.append((cost + weight[lab[j][i]], (i, j))) # Relevante Nachbarn auf den Stapel tun
 
 add_neighbors(0, start) 
@@ -57,18 +47,5 @@ while queue: # Solange die Warteschlange nicht leer ist
         break  # Schleife verlassen
     add_neighbors(cost, pos)
 
-
-
 # Visualizieren des weges
-path = []
-node = pos
-while node is not None:
-    path.append(node)
-    node = parent[node]
-path.reverse()
-
-for (x, y) in path:
-    lab[y][x] = "K"
-
-for row in lab:
-    print(" ".join(row))
+path = vis.print_lab(pos, parent, start, lab)
