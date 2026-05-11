@@ -20,7 +20,7 @@ Die Start koordinate ist immer vorgegeben und es muss der ganze Rand umrandet se
 
 Die Tiefensuche ist ein sehr simpler Algorithmus der immer in einer Richtung geht und bei Kreuzungen eine richtung Priorisiert!
 Es funktioniert mit einen Stack (hier: Stapel), auf dem die nicht Besuchten und relevanten Nachbarn gemerkt werden.<br>
-Der Algorithmus beginnt indem die Start position auf den Stapel gelegt wird und danach alle möglichen Nachbarn. Die Reihnfolge, wie die Nachbarn auf den Stapel gelegt werden, ist wichtig, weil immer die oberste Karte des Stapels die Priorisierte nächste Position ist.<br>
+Der Algorithmus beginnt indem die Start position auf den Stapel gelegt wird und danach alle möglichen Nachbarn. Die Reihenfolge, wie die Nachbarn auf den Stapel gelegt werden, ist wichtig, weil immer die oberste Karte des Stapels die Priorisierte nächste Position ist.<br>
 Wenn der Stapel leer ist ist kein Weg gefunden und es endet. Wenn nicht dann wird die oberste Position vom Stapel genommen, wenn sie noch nicht Besucht ist, weil dann nimmt man die nächste Position. Wenn diese Position, aber das Ziel ist endet es auch (, aber erfolgreich). <br>
 Falls die Position noch nicht besucht war und auch nicht das Ziel war, werden alle relevanten Nachbarn auf den Stapel gelegt. Und es beginnt von neu. <br>
 
@@ -48,7 +48,7 @@ for (i, j) in relative_neighbor: # Alle Nachbarn
         stack.append(((i, j), new_direction)) # Relevante Nachbarn auf den Stapel tun
 ```
 > [!NOTE]
-> `abs_neighbor` sind die Nachbarn in absoluter reihnfolge (d.h. Richtungen: westen/rechts, norden/oben, osten/links und süden/unten) die dann mit hilfe der `direction` Variable relativiert werden. So das in die Richtung die grade sich bewegt wurde geguckt wird.
+> `abs_neighbor` sind die Nachbarn in absoluter  (d.h. Richtungen: westen/rechts, norden/oben, osten/links und süden/unten) die dann mit hilfe der `direction` Variable relativiert werden. So das in die Richtung die grade sich bewegt wurde geguckt wird.
 > Um diese Richtung, in der, der Nachbar ist, zu bekommen, ist wird `get_direction` benutzt.
 
 Es geht weiter mit einer Schleife (gleiche zu "Stapel leer?"), die While-schleife endet erst wenn der Stapel leer ist.
@@ -150,4 +150,4 @@ queue.sort(key=lambda n: n[0])`
 <hr>
 
 ## Genutzte module
-Für den Dijkstra Algorithmus musste ich ```import heap``` benutzten, weil es sonst zu lange dauert. Dazu habe ich meine eigenen Module benutzt ``vis`` und `labyrinth`. [Vis](vis.py) ist zum Visualisieren des resultierenden Weges und das [Labyrinth](labyrinth.py) Modul ist für die verschiedenen test Labyrinthe.<br>
+Für den Dijkstra Algorithmus musste ich ```import heapq``` benutzten, weil es sonst zu lange dauert. Dazu habe ich meine eigenen Module benutzt ``vis`` und `labyrinth`. [Vis](vis.py) ist zum Visualisieren des resultierenden Weges und das [Labyrinth](labyrinth.py) Modul ist für die verschiedenen test Labyrinthe.<br>
