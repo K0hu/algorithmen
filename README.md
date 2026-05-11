@@ -97,11 +97,11 @@ Alle unbesuchten Nachbarn hinten an die Warteschlange -> zurück zu 2<br>
 
 Das Breitensuche programm ändert sich, im gegensatz zum Tiefensuche programm, hauptsächlich bei der Warteschlange.<br>
 Anstatt ```current_pos = stack.pop() # oberste position``` ist es ```current_pos = queue.pop(0)  # unterste postion```
-> Und es wurden die relativen Richtungen entfernt, weil diese jetzt Irrelevant sind.
+> Die relativen Richtungen wurden entfernt, da sie nun irrelevant sind.
 
 ## Dijkstra
 
-Der Dijkstra algorithmus ist im Prinzip das gleiche, wie die Breitensuche, aber es gibt Positionen mit verschiedenen Gewichten. Der unterschied zur Breitensuche ist nur, dass der Weg zu verschiedenen Positionen anders Lang ist.<br>
+Der Dijkstra-Algorithmus funktioniert im Prinzip wie die Breitensuche, jedoch haben Positionen unterschiedliche Gewichte. Der Unterschied zur Breitensuche besteht darin, dass der Weg zu verschiedenen Positionen unterschiedlich lang sein kann.<br>
 
 ```mermaid
 graph LR
@@ -115,7 +115,7 @@ Also Beispiel wir wollen von Stadt A nach Stadt C und von A nach B ist Stau also
 Das Funktioniert indem die Warteschlange sortiert wird. Nach Kosten/Zeit/Gewicht. 
 
 ### [Programm](dijkstra.py)
-Bei Dijkstra sind die Kosten zum Start wichtig, weshalb diese jetzt auch in queue gespeichert werden.
+Bei Dijkstra sind die Kosten bis zur aktuellen Position wichtig, weshalb diese nun ebenfalls in der Queue gespeichert werden:
 ``` python
 queue: list[tuple[int, tuple]] = [(0, start)]
 ```
@@ -139,7 +139,7 @@ Die Warteschlange wird sortiert mit;
 queue.sort(key=lambda n: n[0])`
 ```
 > [!NOTE]
-> `lambda` ist eine im prinzip eine Funktion d.h. man hätte so machen können:
+> `lambda` ist eine im prinzip eine Funktion d.h. man hätte so es auch so machen können:
 > ``` python
 > def get_cost(n):
 >     return n[0]
