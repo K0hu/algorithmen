@@ -20,12 +20,11 @@ direction = 2 # 0 = rechts, 1 = vorne, 2 = links, 3 = hinten
 start = (1, 1) # Start position (S)
 x, y = start
 stack = [] # Der Stapel für die Tiefensuche
+known = [start] # Liste der besuchten Positionen
+parent = {start: None}
 
 # Das dritte Element ist die Richtung: 0 = rechts, 1 = oben, 2 = links, 3 = unten
 stack.append((start, direction))  # Startposition zum Stapel hinzufügen
-
-known = [start] # Liste der besuchten Positionen
-parent = {start: None}
 
 # Nachbarn auf den Stapel hinzufügen
 abs_neighbor = [(x+1, y), (x, y-1), (x-1, y), (x, y+1)]

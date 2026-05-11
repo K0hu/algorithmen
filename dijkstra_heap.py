@@ -34,14 +34,7 @@ while queue:
                 parent[neighbor] = pos
             heapq.heappush(queue, (cost + weight[lab[ny][nx]], neighbor)) # Hinzufuegen zur schlange
 
-# Weg rekonstruieren
-path = []
-node = pos
-while node is not None:
-    path.append(node)
-    node = parent[node]
-path.reverse()
-
+# visualisieren
 path = vis.print_lab(pos, parent, start, lab)
 print(f"\nWeg: {' -> '.join(str(p) for p in path)}")
 print(f"Gesamtkosten: {cost}")
