@@ -24,12 +24,12 @@ Der Algorithmus beginnt indem die Start position auf den Stapel gelegt wird und 
 Wenn der Stapel leer ist ist kein Weg gefunden und es endet. Wenn nicht dann wird die oberste Position vom Stapel genommen, wenn sie noch nicht Besucht ist, weil dann nimmt man die nächste Position. Wenn diese Position, aber das Ziel ist endet es auch (, aber erfolgreich). <br>
 Falls die Position noch nicht besucht war und auch nicht das Ziel war, werden alle relevanten Nachbarn auf den Stapel gelegt. Und es beginnt von neu. <br>
 
-Startposition auf Stapel <br>
-Stapel leer? -> Kein Weg gefunden, Ende <br>
-Oberste Position vom Stapel nehmen<br>
-Bereits besucht? -> zurück zu 2<br>
-Ziel? -> Gefunden, Ende<br>
-Alle unbesuchten Nachbarn auf Stapel -> zurück zu 2<br>
+1. Startposition auf Stapel <br>
+2. Stapel leer? -> Kein Weg gefunden, Ende <br>
+3. Oberste Position vom Stapel nehmen<br>
+4. Bereits besucht? -> zurück zu 2<br>
+5. Ziel? -> Gefunden, Ende<br>
+6. Alle unbesuchten Nachbarn auf Stapel -> zurück zu 2<br>
 
 ### [Programm](tiefensuche.py)
 
