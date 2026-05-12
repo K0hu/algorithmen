@@ -71,12 +71,12 @@ if lab[y][x] == "Z": # Ziel?
 Dann werden wieder alle relevanten Nachbarn auf den Stapel gelegt:
 ``` python
 abs_neighbor = [(x+1, y), (x, y-1), (x-1, y), (x, y+1)]
-    relative_neighbor = abs_neighbor[direction:] + abs_neighbor[:direction]
-    for (i, j) in relative_neighbor: # Alle Nachbarn
-        if lab[j][i] != "#" and (i, j) not in known: # Ist der Nachbar relevant?
-            new_direction = get_direction(current_pos, (i, j))
-            parent[(i, j)] = current_pos
-            stack.append(((i, j), new_direction)) # Relevante Nachbarn auf den Stapel tun
+relative_neighbor = abs_neighbor[direction:] + abs_neighbor[:direction]
+for (i, j) in relative_neighbor: # Alle Nachbarn
+    if lab[j][i] != "#" and (i, j) not in known: # Ist der Nachbar relevant?
+        new_direction = get_direction(current_pos, (i, j))
+        parent[(i, j)] = current_pos
+        stack.append(((i, j), new_direction)) # Relevante Nachbarn auf den Stapel tun
 ```
 
 > [!IMPORTANT]
