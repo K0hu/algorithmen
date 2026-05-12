@@ -48,7 +48,7 @@ for (i, j) in relative_neighbor: # Alle Nachbarn
         stack.append(((i, j), new_direction)) # Relevante Nachbarn auf den Stapel tun
 ```
 > [!NOTE]
-> `abs_neighbor` sind die Nachbarn in abs Reihenfolge (d.h. Richtungen: westen/rechts, norden/oben, osten/links und süden/unten) die dann mit hilfe der `direction` Variable relativiert werden. So das in die Richtung die grade sich bewegt wurde geguckt wird.
+> `abs_neighbor` sind die Nachbarn in abs Reihenfolge (d.h. Richtungen: westen/rechts, norden/oben, osten/links und süden/unten) die dann mit hilfe der `direction` Variable relativiert wird. So das in die Richtung die grade sich bewegt wurde geguckt wird.
 > Um diese Richtung, in der, der Nachbar ist, zu bekommen, ist wird `get_direction` benutzt.
 
 Es geht weiter mit einer Schleife (gleiche zu "Stapel leer?"), die While-schleife endet erst wenn der Stapel leer ist.
