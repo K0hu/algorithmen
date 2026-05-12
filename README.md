@@ -121,7 +121,7 @@ queue: list[tuple[int, tuple]] = [(0, start)]
 ```
 Deshalb wird immer, wenn die Nachbarn auf den Stapel gelegt werden, noch die Kosten der Aktuellen position mit dem Kosten des Nachbars addiert und dazu gelegt:
 ``` python
-def add_neighbors(cost: int, pos: tuple[int]) -> None:
+def add_neighbors(cost: int, pos: tuple[int, int]) -> None:
     # Nachbarn auf den Stapel hinzufügen
     global queue
     x, y = pos
